@@ -36,9 +36,11 @@
     <?php } ?>
 
  <?php }/*If there are no posts found in database*/ else{ ?>
-  <p>Sorry, no posts metched your criteria.</p>
+  <p><?php esc_html_e('Sorry, no posts metched your criteria.','tema')?></p>
 
  <?php } ?>
+
+ 
 
 <?php
   //The wordpress template tag for footer. This will include footer.php
