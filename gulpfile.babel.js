@@ -1,7 +1,18 @@
 const GulpClient = require("gulp");
+import yargs from 'yargs';
+
+const PRODUCTION = yargs.argv.prod;
+
+
+
 
 function defaultTask(cb) {
-  console.log('Hej');
+  console.log('PRODUCTION');
+  cb();
+}
+
+function amir(cb){
+  console.log(PRODUCTION);
   cb();
 }
 
@@ -9,6 +20,7 @@ function defaultTask(cb) {
 
 
 
+exports.amir = amir;
 
 exports.default = defaultTask
 

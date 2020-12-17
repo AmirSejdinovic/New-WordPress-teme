@@ -24,5 +24,8 @@
     "@babel/preset-env": "^7.12.11",
     "@babel/register": "^7.12.10",
     "gulp": "^4.0.2"
+  },
+  "dependencies": {
+    "yargs": "^16.2.0"
   }
 }
