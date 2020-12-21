@@ -6,6 +6,8 @@ import cleanCSS from 'gulp-clean-css';
 import gulpif from 'gulp-if';
 import sorucemaps from 'gulp-sourcemaps';
 import imagemin from 'gulp-imagemin';
+import del from 'del';
+const { series, parallel } = require('gulp');
 
 const PRODUCTION = yargs.argv.prod;
 
@@ -22,6 +24,10 @@ const paths = {
      src: ['src/assets/**/*','!src/assets/{images,js,scss}', '!src/assets/{images,js,scss}/**/*'],
      dest: 'dist/assets'
   }
+}
+
+function clean(){
+    return del(['dist']);
 }
 
 
@@ -48,6 +54,8 @@ function styles(cb){
 
 function watch(){
   gulp.watch('src/assets/scss/*.scss', styles);
+  gulp.watch(paths.images.src, images);
+  gulp.watch(paths.other.src, copy);
 }
 
 function images(){
@@ -62,11 +70,25 @@ function copy(){
   .pipe(gulp.dest(paths.other.dest));
 }
 
+/*function build(){
+  gulp.series(clean, gulp.parallel(styles,images, copy));
+
+}*/
+
+
+
+exports.dev = series(clean, parallel(styles, images,copy), watch);
+
+exports.build = series(clean, parallel(styles, images,copy));
+
+
 
 exports.styles = styles;
 exports.watch = watch;
 exports.images = images;
 exports.copy = copy;
+exports.clean = clean;
 
-exports.default = defaultTask
+
+exports.default = defaultTask;
 
