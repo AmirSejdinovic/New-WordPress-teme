@@ -10,6 +10,7 @@ import del from 'del';
 import webpack from 'webpack-stream';
 import uglify from 'gulp-uglify';
 import named from 'vinyl-named';
+import zip from 'gulp-zip';
 import browserSync from 'browser-sync';
 
 const server = browserSync.create();
@@ -34,6 +35,10 @@ const paths = {
   other: {
      src: ['src/assets/**/*','!src/assets/{images,js,scss}', '!src/assets/{images,js,scss}/**/*'],
      dest: 'dist/assets'
+  },
+  package:{
+    src: ['**/*', '!.vscode', '!node_modules{,/**}','!packaged{,/**}','!src{,/**}', '!.babelrc','!.gitignore', '!gulpfile.babel.js', '!package-lock.json','!package.json'],
+    dest: 'packaged'
   }
 }
 
@@ -131,11 +136,20 @@ function scripts(){
 
 }*/
 
+function compress(){
+  return gulp.src(paths.package.src)
+  .pipe(zip('tema.zip'))
+  .pipe(gulp.dest(paths.package.dest));
+}
 
 
 exports.dev = series(clean, parallel(styles, scripts,images,copy),serve, watch);
 
 exports.build = series(clean, parallel(styles,scripts, images,copy));
+
+
+
+//exports.bundle = series( build, compress);
 
 
 exports.scripts = scripts;
@@ -144,7 +158,7 @@ exports.watch = watch;
 exports.images = images;
 exports.copy = copy;
 exports.clean = clean;
-
+exports.compress = compress;
 
 exports.default = defaultTask;
 
