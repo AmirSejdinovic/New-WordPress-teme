@@ -10,6 +10,9 @@ import del from 'del';
 import webpack from 'webpack-stream';
 import uglify from 'gulp-uglify';
 import named from 'vinyl-named';
+import browserSync from 'browser-sync';
+
+const server = browserSync.create();
 const { series, parallel } = require('gulp');
 
 
@@ -34,6 +37,19 @@ const paths = {
   }
 }
 
+function serve(cb){
+   server.init({
+     proxy: "http://localhost/WpRazvoj/"
+   });
+
+   cb();
+}
+
+function reload(cb){
+   server.reload();
+   cb();
+}
+
 function clean(){
     return del(['dist']);
 }
@@ -54,7 +70,8 @@ function styles(cb){
     .pipe(sass().on('error', sass.logError))
     .pipe(gulpif(PRODUCTION,cleanCSS({compatibility: 'ie8'})))
     .pipe(gulpif(!PRODUCTION, sorucemaps.write()))
-    .pipe(gulp.dest(paths.styles.dest));
+    .pipe(gulp.dest(paths.styles.dest))
+    .pipe(server.stream());
 
     cb();
   
@@ -62,9 +79,10 @@ function styles(cb){
 
 function watch(){
   gulp.watch('src/assets/scss/*.scss', styles);
-  gulp.watch('src/assets/js/**/*.js', scripts);
-  gulp.watch(paths.images.src, images);
-  gulp.watch(paths.other.src, copy);
+  gulp.watch('src/assets/js/**/*.js', gulp.series(scripts, reload));
+  gulp.watch('**/*.php', reload);
+  gulp.watch(paths.images.src, gulp.series(images, reload));
+  gulp.watch(paths.other.src, gulp.series(copy,reload));
 }
 
 function images(){
@@ -115,7 +133,7 @@ function scripts(){
 
 
 
-exports.dev = series(clean, parallel(styles, scripts,images,copy), watch);
+exports.dev = series(clean, parallel(styles, scripts,images,copy),serve, watch);
 
 exports.build = series(clean, parallel(styles,scripts, images,copy));
 
