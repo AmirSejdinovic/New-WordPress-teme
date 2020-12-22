@@ -1,5 +1,11 @@
+//import 'jquery';
+import $ from 'jquery';
 import './components/slider.js';
+
+
 
 let x = 0;
 
-console.log('Konju');
+$('body').click(()=>{
+   alert(true);
+})
