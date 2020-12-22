@@ -1,1 +1,1 @@
-console.log('slajder');
+console.log('slajder2');

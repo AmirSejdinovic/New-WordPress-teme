@@ -9,6 +9,7 @@ import imagemin from 'gulp-imagemin';
 import del from 'del';
 import webpack from 'webpack-stream';
 import uglify from 'gulp-uglify';
+import named from 'vinyl-named';
 const { series, parallel } = require('gulp');
 
 
@@ -24,7 +25,7 @@ const paths = {
      dest: 'dist/assets/images'
   },
   scripts: {
-      src: './src/assets/js/bundle.js',
+      src: ['./src/assets/js/bundle.js','./src/assets/js/admin.js'],
       dest: 'dist/assets/js'
   },
   other: {
@@ -61,6 +62,7 @@ function styles(cb){
 
 function watch(){
   gulp.watch('src/assets/scss/*.scss', styles);
+  gulp.watch('src/assets/js/**/*.js', scripts);
   gulp.watch(paths.images.src, images);
   gulp.watch(paths.other.src, copy);
 }
@@ -79,6 +81,7 @@ function copy(){
 
 function scripts(){
   return gulp.src(paths.scripts.src)
+  .pipe(named())
   .pipe(webpack({
     module: {
       rules:[
@@ -94,7 +97,7 @@ function scripts(){
       ]
     },
     output: {
-      filename: 'bundle.js'
+      filename: '[name].js'
     },
     devtool: !PRODUCTION ? 'inline-source-map' : false
   }))
@@ -109,9 +112,9 @@ function scripts(){
 
 
 
-exports.dev = series(clean, parallel(styles, images,copy), watch);
+exports.dev = series(clean, parallel(styles, scripts,images,copy), watch);
 
-exports.build = series(clean, parallel(styles, images,copy));
+exports.build = series(clean, parallel(styles,scripts, images,copy));
 
 
 exports.scripts = scripts;
