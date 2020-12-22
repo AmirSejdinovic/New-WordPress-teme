@@ -12,6 +12,8 @@ import uglify from 'gulp-uglify';
 import named from 'vinyl-named';
 import zip from 'gulp-zip';
 import browserSync from 'browser-sync';
+import replace from 'gulp-replace';
+import info from './package.json';
 
 const server = browserSync.create();
 const { series, parallel } = require('gulp');
@@ -138,7 +140,8 @@ function scripts(){
 
 function compress(){
   return gulp.src(paths.package.src)
-  .pipe(zip('tema.zip'))
+  .pipe(replace('_themename', info.name))
+  .pipe(zip(`${info.name}.zip`))
   .pipe(gulp.dest(paths.package.dest));
 }
 

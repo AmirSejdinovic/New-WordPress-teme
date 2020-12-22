@@ -24,19 +24,19 @@
        <h2><a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>"><?php the_title(); ?></a></h2>
 
        <div>
-          <?php _themename_post_meta(); ?>
+          <?php tema_post_meta(); ?>
        </div>
 
        <div>
          <?php  the_excerpt(); ?>
        </div>
 
-       <?php _themename_readmore_link(); ?>
+       <?php tema_readmore_link(); ?>
 
     <?php } ?>
 
  <?php }/*If there are no posts found in database*/ else{ ?>
-  <p><?php esc_html_e('Sorry, no posts metched your criteria.','_themename')?></p>
+  <p><?php esc_html_e('Sorry, no posts metched your criteria.','tema')?></p>
 
  <?php } ?>
 
