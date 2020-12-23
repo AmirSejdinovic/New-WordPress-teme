@@ -36,7 +36,7 @@
     <?php } ?>
 <?php do_action('_themename_after_pagination');?>
  <?php }/*If there are no posts found in database*/ else{ ?>
-  <p><?php esc_html_e('Sorry, no posts metched your criteria.','_themename')?></p>
+  <p><?php echo apply_filters('_themename_no_posts_text',esc_html__('Sorry, no posts metched your criteria.','_themename'))?></p>
 
  <?php } ?>
 
