@@ -34,7 +34,7 @@
        <?php _themename_readmore_link(); ?>
 
     <?php } ?>
-
+<?php do_action('_themename_after_pagination');?>
  <?php }/*If there are no posts found in database*/ else{ ?>
   <p><?php esc_html_e('Sorry, no posts metched your criteria.','_themename')?></p>
 
