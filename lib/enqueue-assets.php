@@ -2,6 +2,8 @@
  
  function _themename_assets(){
    wp_enqueue_style('_themename-stylesheet', get_template_directory_uri() . '/dist/assets/css/bundle.css', array(),'1.0.0', 'all');
+
+   wp_enqueue_style( 'boostrap', 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css', array(), '1.0.0.', 'all' );
   
    wp_enqueue_script( '_themename-script', get_template_directory_uri() . '/dist/assets/js/bundle.js', array('jquery'),'1.0.0',true);
  }
