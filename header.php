@@ -13,3 +13,19 @@ language_attributes() ?>>
   ?>
 </head>
 <body <?php body_class(); ?>>
+
+<header role="banner" class="margina-donja-40">
+  <div class="c-header">
+      <div class="o-container u-flags">
+         <div class="c-header--logo">
+            <a href="<?php echo esc_url(home_url('/')); ?> " class="c-header--blogname"><?php esc_html(bloginfo('name')); ?></a>
+         </div>
+
+         <?php get_search_form(true); ?>
+      </div>
+  </div>
+</header>
+
+<div id="content">
+
+

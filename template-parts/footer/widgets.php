@@ -1,7 +1,4 @@
-   
-   </div>
-   
-   <?php
+<?php
      $footer_layout = '3,3,3,3';
      $columns = explode(',', $footer_layout); 
      $footer_bg = 'dark';
@@ -30,20 +27,3 @@
       </div>
    </div>
    <?php } ?>
-   <div class="c-site-info">
-     <div class="row">
-        <div class="container">
-          All Right Recived
-        </div>
-     </div>
-    </div>
-   <?php 
- 
-
-   //Wia this I will add scripts to the WP
-   wp_footer(); ?>
-
-   </div><!--row-->
-   </div><!--container-->
-   </body>
-</html>
