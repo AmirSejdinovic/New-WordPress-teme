@@ -24,6 +24,16 @@ language_attributes() ?>>
          <?php get_search_form(true); ?>
       </div>
   </div>
+  <div class="c-navigacija">
+      <div class="container">
+         <nav class="header-nav" role="nav" aria-label="<?php esc_html_e('Main Navigation', '_themename') ?>">
+         <?php wp_nav_menu(array(
+           'theme_location' => 'main-menu'
+         )); ?>
+         
+         </nav>
+      </div>
+  </div>
 </header>
 
 <div id="content">
