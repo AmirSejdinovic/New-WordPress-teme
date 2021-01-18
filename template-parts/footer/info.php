@@ -4,7 +4,13 @@
 <div class="c-site-info">
      <div class="row">
         <div class="container">
-          <?php echo esc_html($site_info); ?>
+          <?php 
+          $allowed = array('a'=> array(
+            'href'=>array(),
+            'title'=>array()
+          ))
+          
+          echo wp_keses($site_info,$allowed); ?>
         </div>
      </div>
     </div>
