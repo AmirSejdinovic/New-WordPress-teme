@@ -38,6 +38,17 @@ function _themename_customize_register($wp_customize){
      'section'=> '_themename_footer_options'
   ));
 
+  $wp_customize->add_setting('_themename_footer_layout', array(
+     'default'=>'3,3,3,3',
+     'transport'=>'postMessage',
+     'sanitize_callback'=>'sanitize_text_field'
+  ));
+  $wp_customize->add_control('_themename_footer_layout',array(
+     'type'=>'text',
+     'label'=>esc_html__('Footer Layout','_themename'),
+     'section'=>'_themename_footer_options'
+  ));
+
 }
 
 add_action('customize_register', '_themename_customize_register');
